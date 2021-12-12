@@ -1,15 +1,16 @@
 import './App.css';
-import LoginForm from './login-form/login'
+import SignInSide from "./login-form/login";
+import Dashboard from './dashboard/Dashboard'
 
 function App() {
   return (
     <div>
-      <div className="App-header">
-        Header
+      {/* <div className="App-header">Header</div> */}
+      <div className="App">
+        <SignInSide />
+        <Dashboard />
       </div>
-        <div className="App">
-          <LoginForm />
-      </div>
+      <div>Hello</div>
     </div>
   );
 }

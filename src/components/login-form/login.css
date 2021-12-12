@@ -1,3 +1,18 @@
 .errMsg{
     color: red;
 }
+
+.myDiv {
+    width: 100%;
+  border: 5px outset black;
+  border-radius: 5%;
+  border-style: double;
+  text-align: center;
+  padding-top: 20%;
+  padding-bottom: 20%;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.buttonDiv{
+    padding-top: 10%;
+}

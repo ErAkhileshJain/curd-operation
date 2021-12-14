@@ -1,14 +1,12 @@
 import './App.css';
-import SignInSide from "./login-form/login";
-import Dashboard from './dashboard/Dashboard'
+import AppRoutes from "./routes/Routes";
 
 function App() {
   return (
     <div>
       {/* <div className="App-header">Header</div> */}
       <div className="App">
-        <SignInSide />
-        <Dashboard />
+        <AppRoutes />
       </div>
       <div>Hello</div>
     </div>

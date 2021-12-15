@@ -99,6 +99,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import { useNavigate} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -121,6 +122,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignInSide() {
+  let navigate=useNavigate()
   const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -152,6 +154,8 @@ function SignInSide() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        localStorage.setItem('userToken', data.result.token)
+        navigate('/dashboard')
       })
       .catch((e) => {
         console.log(e);

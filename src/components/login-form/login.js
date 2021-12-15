@@ -122,7 +122,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 function SignInSide() {
-  let navigate=useNavigate()
+  const navigate=useNavigate()
   const [username, setUsername] = useState("");
   const [password, setpassword] = useState("");
   const [errMsg, setErrMsg] = useState("");

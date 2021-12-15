@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Link from "@mui/material/Link";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Title from "./Title";
 import CircularProgress from "@mui/material/CircularProgress";
+import {DataGrid} from '@mui/x-data-grid'
 
 const rows = [
   {
@@ -124,53 +119,97 @@ export default function Orders() {
     };
     setTimeout(() => { 
         fetch(
-          "https://peaceful-stream-42545.herokuapp.com/api/v1/customer/getUserList?order=ASC&orderBy=firstName",
+          "https://peaceful-stream-42545.herokuapp.com/api/v1/customer/getUserList?order=ASC&orderBy=firstName&limit=100",
           payload
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log("User Data--->", data);
             setUserData(data.result.rows);
           })
           .catch((e) => {
             console.log(e);
           });
         setLoader(false);
-    }, 3000);
+    }, 2000);
 
   },[]);
+
+
+  const columns = [
+    // { field: 'id', headerName: 'ID', width: 70 },
+    { field: 'firstName', headerName: 'First name'},
+    { field: 'lastName', headerName: 'Last name'},
+    { field: 'email', headerName: 'Email'},
+    { field: 'role', headerName: 'Role' },
+
+    {
+      field: 'fullName',
+      headerName: 'Full name',
+      description: 'This column has a value getter and is not sortable.',
+      sortable: false,
+      width: 160,
+      valueGetter: (params) =>
+        `${params.getValue(params.id, 'firstName') || ''} ${
+          params.getValue(params.id, 'lastName') || ''
+        }`,
+    },
+    {field:'id',headerName: 'Edit' },
+    { 
+      field: 'id', 
+      headerName: 'Edit',
+      // valueGetter:(params)=>`${params.getValue(params.id,'id')||''}`
+    },
+  ];
+
   return (
-    <React.Fragment>
-      <Title>User List</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell>Last Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Role</TableCell>
-            <TableCell align="right">DOJ</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {loader ? <CircularProgress /> : null}
-          {userData.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.firstName}</TableCell>
-              <TableCell>{row.lastName}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.role}</TableCell>
-              <TableCell align="right">{`${row.createdAt.substring(
-                0,
-                10
-              )}`}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
-    </React.Fragment>
+
+<>
+<Title>User List</Title>
+{loader ? <CircularProgress /> : <div style={{ height: 400, width: '100%' }}>
+<DataGrid
+        rows={userData}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        // checkboxSelection
+      />
+    </div>
+}
+
+</>
+
+
+    // <React.Fragment>
+    //   <Title>User List</Title>
+    //   <Table size="small">
+    //     <TableHead>
+    //       <TableRow>
+    //         <TableCell>First Name</TableCell>
+    //         <TableCell>Last Name</TableCell>
+    //         <TableCell>Email</TableCell>
+    //         <TableCell>Role</TableCell>
+    //         <TableCell align="right">DOJ</TableCell>
+    //       </TableRow>
+    //     </TableHead>
+    //     <TableBody>
+    //       {loader ? <CircularProgress /> : null}
+    //       {userData.map((row) => (
+    //         <TableRow key={row.id}>
+    //           <TableCell>{row.firstName}</TableCell>
+    //           <TableCell>{row.lastName}</TableCell>
+    //           <TableCell>{row.email}</TableCell>
+    //           <TableCell>{row.role}</TableCell>
+    //           <TableCell align="right">{`${row.createdAt.substring(
+    //             0,
+    //             10
+    //           )}`}</TableCell>
+    //         </TableRow>
+    //       ))}
+    //     </TableBody>
+    //   </Table>
+    //   <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+    //     See more orders
+    //   </Link>
+    // </React.Fragment>
   );
 }

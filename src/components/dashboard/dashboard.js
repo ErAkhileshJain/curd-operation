@@ -89,21 +89,21 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-const logout = () => {
-      // let navegate = useNavigate();
-  localStorage.clear();
-  window.location.href = "/";
-    // navegate("/");
-  };
-
 
 
 function DashboardContent() {
   
+  const navegate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const logout = () => {
+localStorage.clear();
+// window.location.href = "/";
+  navegate("/");
+};
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -137,7 +137,7 @@ function DashboardContent() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
-              <LogoutIcon onClick={ logout()} />
+              <LogoutIcon onClick={ logout} />
               {/* <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge> */}
@@ -179,7 +179,7 @@ function DashboardContent() {
             <Grid container spacing={3}>
               {/* User List */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                <Paper>
                   <Orders />
                 </Paper>
               </Grid>

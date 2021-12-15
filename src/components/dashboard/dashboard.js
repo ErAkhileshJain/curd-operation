@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState} from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,12 +17,13 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from '@mui/icons-material/Logout';
 import { mainListItems, secondaryListItems } from "./listItems";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
 import Orders from "./Orders";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
+  
   return (
     <Typography
       variant="body2"
@@ -88,7 +89,17 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
+const logout = () => {
+      // let navegate = useNavigate();
+  localStorage.clear();
+  window.location.href = "/";
+    // navegate("/");
+  };
+
+
+
 function DashboardContent() {
+  
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -126,9 +137,10 @@ function DashboardContent() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <LogoutIcon onClick={ logout()} />
+              {/* <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
-              </Badge>
+              </Badge> */}
             </IconButton>
           </Toolbar>
         </AppBar>

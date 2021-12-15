@@ -9,7 +9,6 @@ function App() {
       <div className="App">
         <Routers />
       </div>
-      <div>Hello</div>
     </div>
   );
 }

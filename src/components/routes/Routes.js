@@ -10,6 +10,7 @@ import {
 
 import Login from '../login-form/login'
 import Dashboard from '../dashboard/Dashboard';
+import SignUp from '../Sign-up/SignUp';
 
 
 const RequireAuth = ({ children }) => {
@@ -29,7 +30,9 @@ const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Login />} />
+                <Route path='/a' element={<Login />} />
+                <Route path='/signup' element={<SignUp />} />
+                <Route path='/login' element={<Login />} />
                 <Route path='/dashboard' element={
                     <RequireAuth>
                         <Dashboard />
